@@ -23,13 +23,13 @@ public class OperadoresAritmeticos {
         x += 2; // x = x + 2;
         System.out.println(x); //imprime 12
         x -= 4;
-        System.out.println(x); //imprime ?
+        System.out.println(x); //imprime 8
         x *= 2;
-        System.out.println(x); //imprime ?
+        System.out.println(x); //imprime 16
         x /= 3;
-        System.out.println(x); //imprime ?
+        System.out.println(x); //imprime 5
         x %= 2;
-        System.out.println(x); //imprime ?
+        System.out.println(x); //imprime 1
 
     }
 }

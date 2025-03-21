@@ -15,6 +15,9 @@ public class Main {
         churros.idade = 79;
         churros.altura = 1.9;
 
+        System.out.println(leandro);
+        System.out.println(churros);
+
         System.out.println(leandro.nome);
         System.out.println(leandro.altura);
         System.out.println(churros.nome);
