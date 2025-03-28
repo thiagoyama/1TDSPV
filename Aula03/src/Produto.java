@@ -7,4 +7,7 @@ public class Produto {
     boolean disponivel;
     Fornecedor fornecedor;
 
+    //Métodos
+    
+
 }
