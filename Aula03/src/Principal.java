@@ -58,5 +58,17 @@ public class Principal {
         System.out.println("CNPJ Fornecedor: " + produto.fornecedor.cnpj);
         System.out.println("Telefone do fornecedor " + produto.fornecedor.telefone);
 
+        //Aumentar o preço do produto em 20
+        produto.aumentarPreco(20);
+
+        //Exibir o preço do produto
+        System.out.println("Preço atualizado " + produto.preco);
+
+        //Calcular o desconto do produto em 7%
+
+
+        //Exibir o valor do produto com o desconto
+
+
     }
 }
