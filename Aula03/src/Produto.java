@@ -14,9 +14,10 @@ public class Produto {
     }
 
     //Criar um método que calcula o valor do produto com um desconto específico
-    void calcularDesconto(float porcentagem){
+    float calcularDesconto(float porcentagem){
         float desconto;
         desconto = preco - preco * porcentagem / 100;
+        return desconto;
     }
 
 }
