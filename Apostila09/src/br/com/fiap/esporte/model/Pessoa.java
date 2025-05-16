@@ -7,6 +7,11 @@ public class Pessoa {
     private String email;
     private int idade;
 
+    //Criar um construtor que recebe o nome
+    public Pessoa(String nome){
+        this.nome = nome;
+    }
+
     public Endereco getEndereco() {
         return endereco;
     }

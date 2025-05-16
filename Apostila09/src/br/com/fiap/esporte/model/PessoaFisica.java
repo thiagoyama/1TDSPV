@@ -5,6 +5,15 @@ public class PessoaFisica extends Pessoa {
     private String cpf;
     private boolean aposentado;
 
+    public PessoaFisica(String nome){
+        super(nome);
+    }
+
+    public PessoaFisica(String nome, String cpf){
+        super(nome);
+        this.cpf = cpf;
+    }
+
     public String getCpf() {
         return cpf;
     }
