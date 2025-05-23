@@ -6,6 +6,17 @@ public class Produto {
     private String descricao;
     private double preco;
 
+    public Produto(int codigo, String descricao, double preco) {
+        this.codigo = codigo;
+        this.descricao = descricao;
+        this.preco = preco;
+    }
+
+    @Override
+    public String toString() {
+        return "Código: " + codigo + ", Descrição: " + descricao + ", Preço: " + preco;
+    }
+
     //Métodos
     //Calcula e retorna o valor com desconto
     public double calcularDesconto(int porcentagem){
@@ -21,14 +32,11 @@ public class Produto {
     //Recebe uma String (cupom) FIAP10 -> 10%, FIAP20 -> 20%
     public double calcularDesconto(String cupom){
         if (cupom.equals("FIAP10"))
-            calcularDesconto(10);
+            return calcularDesconto(10);
         else if (cupom.equals("FIAP20"))
-            calcularDesconto(20);
+            return calcularDesconto(20);
         return preco;
     }
-
-    //Sobrescrita do método na classe Alimento
-    //Recebe uma String (cupom) FIAP10 -> 10%, FIAP20 -> 20%, FIAP 40%
 
     public int getCodigo() {
         return codigo;
