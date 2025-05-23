@@ -24,5 +24,10 @@ public class Terminal {
         //Calcular e exibir o valor com desconto padrão
         System.out.println(alimento.calcularDesconto());
 
+        //Alimento é um produto?
+        Produto churros = new Alimento();
+        churros.setPreco(100);
+        System.out.println(churros.calcularDesconto()); //Valor impresso?
+
     }
 }

@@ -17,8 +17,15 @@ public class Produto {
         return calcularDesconto(5);
     }
 
-    //Sobrecarga do método de calcular desconto:d
+    //Sobrecarga do método de calcular desconto
     //Recebe uma String (cupom) FIAP10 -> 10%, FIAP20 -> 20%
+    public double calcularDesconto(String cupom){
+        if (cupom.equals("FIAP10"))
+            calcularDesconto(10);
+        else if (cupom.equals("FIAP20"))
+            calcularDesconto(20);
+        return preco;
+    }
 
     //Sobrescrita do método na classe Alimento
     //Recebe uma String (cupom) FIAP10 -> 10%, FIAP20 -> 20%, FIAP 40%
