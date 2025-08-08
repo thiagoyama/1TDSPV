@@ -12,6 +12,11 @@ public class Fruta {
         this.preco = preco;
     }
 
+    @Override
+    public String toString() {
+        return nome + ", " + cor + ", R$" + preco;
+    }
+
     public String getNome() {
         return nome;
     }
