@@ -1,5 +1,7 @@
 package br.com.fiap;
 
+import br.com.fiap.factory.ConnectionFactory;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -10,12 +12,7 @@ public class ExemploCadastro {
     public static void main(String[] args) {
 
         try {
-            //Registrar o driver do banco de dados
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-
-            //Obter a conexão com o banco de dados
-            Connection conexao = DriverManager.getConnection("jdbc:oracle:thin:@oracle.fiap.com.br:1521:orcl",
-                    "pf0392","fiap");
+            Connection conexao = ConnectionFactory.getConnection();
 
             System.out.println("Conectado com sucesso!");
 
