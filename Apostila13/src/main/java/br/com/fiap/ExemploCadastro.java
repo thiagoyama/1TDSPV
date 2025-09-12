@@ -21,7 +21,7 @@ public class ExemploCadastro {
 
             //Inserir um produto no banco de dados
             stm.executeUpdate("insert into t_produto (cd_produto, nm_produto, ds_produto, vl_produto) " +
-                    "values (1, 'Livro Java Como Programar', 'Livro para aprender a programar Java', 250.50)");
+                    "values (2, 'Livro Java Como Programar', 'Livro para aprender a programar Java', 250.50)");
 
             System.out.println("Cadastrado com sucessso");
 

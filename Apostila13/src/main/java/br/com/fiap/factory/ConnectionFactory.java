@@ -13,7 +13,7 @@ public class ConnectionFactory {
 
         //Obter a conexão com o banco de dados
         Connection conexao = DriverManager.getConnection("jdbc:oracle:thin:@oracle.fiap.com.br:1521:orcl",
-                "pf0392","fiap");
+                "pf0392","izumi25");
 
         return conexao;
     }

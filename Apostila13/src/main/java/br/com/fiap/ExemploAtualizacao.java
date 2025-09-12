@@ -15,7 +15,10 @@ public class ExemploAtualizacao {
             //Obter um Statement
             Statement stm = churros.createStatement();
             //Executar o comando SQL
-            stm.executeUpdate("update...);
+            stm.executeUpdate("update t_produto " +
+                    "set vl_produto = 1000 where cd_produto = 1");
+
+            System.out.println("Produto atualizado");
             //Fechar a conexão
             churros.close();
         } catch (SQLException | ClassNotFoundException e) {
