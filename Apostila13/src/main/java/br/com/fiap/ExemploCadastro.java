@@ -2,6 +2,7 @@ package br.com.fiap;
 
 import br.com.fiap.factory.ConnectionFactory;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
