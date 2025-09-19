@@ -9,6 +9,23 @@ public class Cliente {
     private boolean ativo;
     private double peso;
 
+    public Cliente() {}
+
+    public Cliente(int codigo, String nome, String telefone, String cpf, boolean ativo, double peso) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.cpf = cpf;
+        this.ativo = ativo;
+        this.peso = peso;
+    }
+
+    @Override
+    public String toString() {
+        return "Codigo: " + codigo + ", Nome: " + nome + ", Telefone: " +
+                telefone + " CPF: " + cpf + ", Ativo: " + ativo + ", Peso: " + peso;
+    }
+
     public int getCodigo() {
         return codigo;
     }
