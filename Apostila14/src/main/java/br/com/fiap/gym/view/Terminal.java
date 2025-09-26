@@ -3,6 +3,7 @@ package br.com.fiap.gym.view;
 import br.com.fiap.gym.dao.ClienteDao;
 import br.com.fiap.gym.exception.EntidadeNaoEncontradaException;
 import br.com.fiap.gym.model.Cliente;
+import java.util.List;
 import java.util.Scanner;
 
 public class Terminal {
@@ -24,9 +25,13 @@ public class Terminal {
                         System.out.println("Cliente cadastrado com sucesso!");
                         break;
                     case 2:
-                        cliente = lerCliente(leitor);
-                        dao.atualizar(cliente);
-                        System.out.println("Cliente atualizado com sucesso!");
+                        try {
+                            cliente = lerCliente(leitor);
+                            dao.atualizar(cliente);
+                            System.out.println("Cliente atualizado com sucesso!");
+                        } catch (EntidadeNaoEncontradaException e){
+                            System.out.println("Cliente não encontrado para atualizar");
+                        }
                         break;
                     case 3:
                         System.out.println("Digite o codigo do cliente");
@@ -35,6 +40,22 @@ public class Terminal {
                             cliente = dao.buscar(codigo);
                             System.out.println(cliente);
                         } catch (EntidadeNaoEncontradaException e) {
+                            System.out.println(e.getMessage());
+                        }
+                        break;
+                    case 4:
+                        List<Cliente> clientes = dao.listar();
+                        for (Cliente c : clientes){
+                            System.out.println(c);
+                        }
+                        break;
+                    case 5:
+                        try {
+                            System.out.println("Digite o codigo do cliente que será removido");
+                            codigo = leitor.nextInt();
+                            dao.remover(codigo);
+                            System.out.println("Cliente removido!");
+                        } catch (EntidadeNaoEncontradaException e){
                             System.out.println(e.getMessage());
                         }
                         break;
