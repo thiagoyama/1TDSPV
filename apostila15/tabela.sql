@@ -7,3 +7,9 @@ create table t_tdspv_produto (
 );
 
 create sequence sq_tdspv_produto start with 1 increment by 1 nocache;
+
+create table t_tdspv_categoria (
+    cd_categoria number(6,0) primary key,
+    nm_categoria varchar2(20) not null
+    
+);

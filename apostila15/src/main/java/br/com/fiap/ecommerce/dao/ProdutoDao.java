@@ -16,6 +16,16 @@ public class ProdutoDao {
     @Inject
     private DataSource dataSource;
 
+    public void deletar(int id) throws SQLException, EntidadeNaoEncontradaException {
+        try (Connection conexao = dataSource.getConnection()){
+            PreparedStatement stmt = conexao.prepareStatement("delete from " +
+                    "t_tdspv_produto where cd_produto = ?");
+            stmt.setInt(1, id);
+            if (stmt.executeUpdate() == 0)
+                throw new EntidadeNaoEncontradaException("Não tem produto para apagar");
+        }
+    }
+
     public void atualizar(Produto produto) throws SQLException, EntidadeNaoEncontradaException {
         try (Connection conexao = dataSource.getConnection()){
             PreparedStatement stmt = conexao.prepareStatement("update t_tdspv_produto set nm_produto = ?, " +

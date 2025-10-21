@@ -1,33 +1,23 @@
-package br.com.fiap.ecommerce.model;
+package br.com.fiap.ecommerce.dto.produto;
+
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 
-public class Produto {
+public class AtualizarProdutoDto {
 
-    private int codigo;
+    @Size(max = 80)
+    @NotBlank
     private String nome;
+
+    @PositiveOrZero
     private int quantidade;
+
+    @Positive
     private double valor;
+
+    @Future
     private LocalDate dataValidade;
-
-    public Produto() {
-    }
-
-    public Produto(int codigo, String nome, int quantidade, double valor, LocalDate dataValidade) {
-        this.codigo = codigo;
-        this.nome = nome;
-        this.quantidade = quantidade;
-        this.valor = valor;
-        this.dataValidade = dataValidade;
-    }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
 
     public String getNome() {
         return nome;
