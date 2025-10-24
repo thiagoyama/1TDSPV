@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class CadastroProdutoDto {
 
     @NotBlank(message = "Nome é obrigatório")
-    @Size(max = 10)
+    @Size(max = 80, min = 2)
     private String nome;
 
     @Positive
