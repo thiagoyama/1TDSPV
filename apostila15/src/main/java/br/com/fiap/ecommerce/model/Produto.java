@@ -23,6 +23,15 @@ public class Produto {
         this.dataValidade = dataValidade;
     }
 
+    public Produto(int codigo, String nome, int quantidade, double valor, LocalDate dataValidade, Categoria categoria) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.quantidade = quantidade;
+        this.valor = valor;
+        this.dataValidade = dataValidade;
+        this.categoria = categoria;
+    }
+
     public Categoria getCategoria() {
         return categoria;
     }

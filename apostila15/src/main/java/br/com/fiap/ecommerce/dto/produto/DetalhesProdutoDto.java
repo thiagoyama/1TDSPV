@@ -1,11 +1,23 @@
 package br.com.fiap.ecommerce.dto.produto;
 
+import br.com.fiap.ecommerce.dto.categoria.DetalhesCategoriaDto;
+
 public class DetalhesProdutoDto {
 
     private int codigo;
     private String nome;
     private int quantidade;
     private double valor;
+
+    private DetalhesCategoriaDto categoria;
+
+    public DetalhesCategoriaDto getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(DetalhesCategoriaDto categoria) {
+        this.categoria = categoria;
+    }
 
     public int getCodigo() {
         return codigo;

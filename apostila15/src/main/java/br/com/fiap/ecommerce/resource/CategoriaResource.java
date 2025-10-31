@@ -3,6 +3,7 @@ package br.com.fiap.ecommerce.resource;
 import br.com.fiap.ecommerce.dao.CategoriaDao;
 import br.com.fiap.ecommerce.dto.categoria.CadastroCategoriaDto;
 import br.com.fiap.ecommerce.dto.categoria.DetalhesCategoriaDto;
+import br.com.fiap.ecommerce.exception.EntidadeNaoEncontradaException;
 import br.com.fiap.ecommerce.model.Categoria;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -23,6 +24,12 @@ public class CategoriaResource {
 
     @Inject
     private ModelMapper mapper;
+
+    @GET
+    @Path("{id}")
+    public DetalhesCategoriaDto get(@PathParam("id") int codigo) throws EntidadeNaoEncontradaException, SQLException {
+        return mapper.map(categoriaDao.buscar(codigo), DetalhesCategoriaDto.class);
+    }
 
     @GET
     public List<DetalhesCategoriaDto> get() throws SQLException {

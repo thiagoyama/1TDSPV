@@ -43,6 +43,11 @@ public class ProdutoResource {
     @Path("/{id}")
     public Response atualizar(@PathParam("id") int codigo, @Valid AtualizarProdutoDto dto) throws EntidadeNaoEncontradaException, SQLException {
         Produto produto = modelMapper.map(dto, Produto.class);
+
+        Categoria c = categoriaDao.buscar(dto.getCategoria());
+
+        produto.setCategoria(c);
+
         produto.setCodigo(codigo);
         produtoDao.atualizar(produto);
         return Response.ok().build();

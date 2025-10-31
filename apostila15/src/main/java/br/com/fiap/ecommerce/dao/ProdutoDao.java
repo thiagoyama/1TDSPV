@@ -1,6 +1,7 @@
 package br.com.fiap.ecommerce.dao;
 
 import br.com.fiap.ecommerce.exception.EntidadeNaoEncontradaException;
+import br.com.fiap.ecommerce.model.Categoria;
 import br.com.fiap.ecommerce.model.Produto;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -29,10 +30,10 @@ public class ProdutoDao {
     public void atualizar(Produto produto) throws SQLException, EntidadeNaoEncontradaException {
         try (Connection conexao = dataSource.getConnection()){
             PreparedStatement stmt = conexao.prepareStatement("update t_tdspv_produto set nm_produto = ?, " +
-                    "qt_produto = ?, vl_produto = ?, dt_validade =? where cd_produto = ?");
+                    "qt_produto = ?, vl_produto = ?, dt_validade =?, cd_categoria = ? where cd_produto = ?");
             //Seta os parametros
             setarParametros(produto, stmt);
-            stmt.setInt(5 , produto.getCodigo());
+            stmt.setInt(6 , produto.getCodigo());
             //Executa a query e valida se deu bom
             if (stmt.executeUpdate() == 0)
                 throw new EntidadeNaoEncontradaException("Produto não existe para ser atualizado");
@@ -49,7 +50,8 @@ public class ProdutoDao {
 
     public Produto buscar(int codigo) throws SQLException, EntidadeNaoEncontradaException {
         try (Connection conexao = dataSource.getConnection()){
-            PreparedStatement stmt = conexao.prepareStatement("select * from t_tdspv_produto where cd_produto = ?");
+            PreparedStatement stmt = conexao.prepareStatement("select p.cd_produto, p.nm_produto, p.qt_produto, p.vl_produto, p.dt_validade, p.cd_categoria, c.nm_categoria from t_tdspv_produto p " +
+                    " left join t_tdspv_categoria c on p.cd_categoria = c.cd_categoria where cd_produto = ?");
             //Seta o id na query
             stmt.setInt(1, codigo);
             //Executa a query
@@ -65,7 +67,8 @@ public class ProdutoDao {
 
     public List<Produto> listar() throws SQLException {
         try (Connection conexao = dataSource.getConnection()){
-            PreparedStatement stmt = conexao.prepareStatement("select * from t_tdspv_produto");
+            PreparedStatement stmt = conexao.prepareStatement("select p.cd_produto, p.nm_produto, p.qt_produto, p.vl_produto, p.dt_validade, p.cd_categoria, c.nm_categoria from t_tdspv_produto p " +
+                    " left join t_tdspv_categoria c on p.cd_categoria = c.cd_categoria");
             ResultSet rs = stmt.executeQuery();
             List<Produto> lista = new ArrayList<>();
             while (rs.next()){
@@ -82,7 +85,12 @@ public class ProdutoDao {
         int quantidade = rs.getInt("qt_produto");
         double valor = rs.getDouble("vl_produto");
         LocalDate dataValidade = rs.getObject("dt_validade", LocalDate.class);
-        return new Produto(codigo, nome, quantidade, valor, dataValidade);
+
+        int codigoCategoria = rs.getInt("cd_categoria");
+        String nomeCategoria = rs.getString("nm_categoria");
+
+        Categoria categoria = new Categoria(codigoCategoria, nomeCategoria);
+        return new Produto(codigo, nome, quantidade, valor, dataValidade, categoria);
     }
 
     public void cadastrar(Produto produto) throws SQLException {

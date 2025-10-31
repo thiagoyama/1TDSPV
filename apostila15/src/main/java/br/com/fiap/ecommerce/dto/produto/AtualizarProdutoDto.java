@@ -19,6 +19,17 @@ public class AtualizarProdutoDto {
     @Future
     private LocalDate dataValidade;
 
+    @Positive
+    private int categoria;
+
+    public int getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(int categoria) {
+        this.categoria = categoria;
+    }
+
     public String getNome() {
         return nome;
     }
