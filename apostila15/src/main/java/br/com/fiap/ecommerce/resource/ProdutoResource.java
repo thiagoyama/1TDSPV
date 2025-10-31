@@ -1,10 +1,12 @@
 package br.com.fiap.ecommerce.resource;
 
+import br.com.fiap.ecommerce.dao.CategoriaDao;
 import br.com.fiap.ecommerce.dao.ProdutoDao;
 import br.com.fiap.ecommerce.dto.produto.AtualizarProdutoDto;
 import br.com.fiap.ecommerce.dto.produto.CadastroProdutoDto;
 import br.com.fiap.ecommerce.dto.produto.DetalhesProdutoDto;
 import br.com.fiap.ecommerce.exception.EntidadeNaoEncontradaException;
+import br.com.fiap.ecommerce.model.Categoria;
 import br.com.fiap.ecommerce.model.Produto;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -26,6 +28,9 @@ public class ProdutoResource {
 
     @Inject
     private ModelMapper modelMapper;
+
+    @Inject
+    private CategoriaDao categoriaDao;
 
     @DELETE
     @Path("/{id}")
@@ -59,9 +64,15 @@ public class ProdutoResource {
     }
 
     @POST
-    public Response create(@Valid CadastroProdutoDto dto, @Context UriInfo uriInfo) throws SQLException {
+    public Response create(@Valid CadastroProdutoDto dto,
+                           @Context UriInfo uriInfo)
+            throws SQLException, EntidadeNaoEncontradaException {
+
         Produto produto = modelMapper.map(dto, Produto.class);
 
+        Categoria c = categoriaDao.buscar(dto.getCategoria());
+
+        produto.setCategoria(c);
         produtoDao.cadastrar(produto);
 
         //Constroi uma URL de retorno, para acessar o recurso criado

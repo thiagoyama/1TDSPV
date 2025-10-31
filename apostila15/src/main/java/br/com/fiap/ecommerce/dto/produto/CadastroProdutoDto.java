@@ -19,6 +19,17 @@ public class CadastroProdutoDto {
     @Future(message = "A data deve estar no futuro")
     private LocalDate dataValidade;
 
+    @Positive
+    private int categoria;
+
+    public int getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(int categoria) {
+        this.categoria = categoria;
+    }
+
     public String getNome() {
         return nome;
     }

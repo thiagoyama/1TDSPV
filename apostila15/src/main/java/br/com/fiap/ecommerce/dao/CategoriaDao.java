@@ -1,5 +1,6 @@
 package br.com.fiap.ecommerce.dao;
 
+import br.com.fiap.ecommerce.exception.EntidadeNaoEncontradaException;
 import br.com.fiap.ecommerce.model.Categoria;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -18,6 +19,19 @@ public class CategoriaDao {
 
     @Inject
     private DataSource dataSource;
+
+    //Implementar a pesquisa pelo Codigo
+    public Categoria buscar(int id) throws SQLException, EntidadeNaoEncontradaException {
+        try (Connection conexao = dataSource.getConnection()){
+            PreparedStatement stmt = conexao.prepareStatement(
+                    "select * from t_tdspv_categoria where cd_categoria = ?");
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (!rs.next())
+                throw new EntidadeNaoEncontradaException("Categoria não existe");
+            return parseCategoria(rs);
+        }
+    }
 
     public void cadastrar(Categoria categoria) throws SQLException {
         try (Connection conexao = dataSource.getConnection()){

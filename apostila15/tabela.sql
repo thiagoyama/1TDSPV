@@ -6,6 +6,10 @@ create table t_tdspv_produto (
     dt_validade date
 );
 
+alter table t_tdspv_produto add cd_categoria number(6,0);
+alter table t_tdspv_produto add constraint
+    fk_cd_categoria foreign key (cd_categoria) references t_tdspv_categoria(cd_categoria);
+
 create sequence sq_tdspv_produto start with 1 increment by 1 nocache;
 
 create table t_tdspv_categoria (
