@@ -32,6 +32,14 @@ public class ProdutoResource {
     @Inject
     private CategoriaDao categoriaDao;
 
+    @GET
+    @Path("pesquisa")
+    public List<DetalhesProdutoDto> get(@QueryParam("categoria") int codigo) throws SQLException {
+        return produtoDao.buscarPorCategoria(codigo).stream().map(
+                p -> modelMapper.map(p, DetalhesProdutoDto.class)
+        ).toList();
+    }
+
     @DELETE
     @Path("/{id}")
     public Response deletar(@PathParam("id") int codigo) throws EntidadeNaoEncontradaException, SQLException {

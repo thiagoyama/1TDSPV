@@ -17,6 +17,21 @@ public class ProdutoDao {
     @Inject
     private DataSource dataSource;
 
+    public List<Produto> buscarPorCategoria(int codigo) throws SQLException {
+        try (Connection conexao = dataSource.getConnection()){
+            PreparedStatement stmt = conexao.prepareStatement("select p.cd_produto, p.nm_produto, p.qt_produto, p.vl_produto," +
+                    "p.dt_validade, p.cd_categoria, c.nm_categoria from t_tdspv_produto p left join t_tdspv_categoria c " +
+                    "on p.cd_categoria = c.cd_categoria where c.cd_categoria = ?");
+            stmt.setInt(1, codigo);
+            List<Produto> lista = new ArrayList<>();
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                lista.add(parseProduto(rs));
+            }
+            return lista;
+        }
+    }
+
     public void deletar(int id) throws SQLException, EntidadeNaoEncontradaException {
         try (Connection conexao = dataSource.getConnection()){
             PreparedStatement stmt = conexao.prepareStatement("delete from " +

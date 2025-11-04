@@ -1,4 +1,14 @@
+# Ignore everything first
 *
+
+# But include necessary files for building
+!mvnw
+!mvnw.cmd
+!pom.xml
+!.mvn/
+!src/
+
+# Include target artifacts if they exist
 !target/*-runner
 !target/*-runner.jar
 !target/lib/*

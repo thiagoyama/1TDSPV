@@ -1,8 +1,10 @@
 package br.com.fiap.ecommerce.resource;
 
 import br.com.fiap.ecommerce.dao.CategoriaDao;
+import br.com.fiap.ecommerce.dao.ProdutoDao;
 import br.com.fiap.ecommerce.dto.categoria.CadastroCategoriaDto;
 import br.com.fiap.ecommerce.dto.categoria.DetalhesCategoriaDto;
+import br.com.fiap.ecommerce.dto.produto.DetalhesProdutoDto;
 import br.com.fiap.ecommerce.exception.EntidadeNaoEncontradaException;
 import br.com.fiap.ecommerce.model.Categoria;
 import jakarta.inject.Inject;
@@ -23,7 +25,17 @@ public class CategoriaResource {
     private CategoriaDao categoriaDao;
 
     @Inject
+    private ProdutoDao produtoDao;
+
+    @Inject
     private ModelMapper mapper;
+
+    @GET
+    @Path("{id}/produtos")
+    public List<DetalhesProdutoDto> buscarPorCategoria(@PathParam("id") int codigo) throws SQLException {
+        return produtoDao.buscarPorCategoria(codigo)
+                .stream().map(p -> mapper.map(p, DetalhesProdutoDto.class)).toList();
+    }
 
     @GET
     @Path("{id}")
