@@ -12,6 +12,7 @@ public class Terminal {
         //Criar um novo objeto Computador
         Computador pichau = new Computador("I9", 2);
 
+
     }
 
 }
