@@ -3,7 +3,6 @@ package br.com.fiap.portal.view;
 import br.com.fiap.portal.model.Aluno;
 import br.com.fiap.portal.model.Endereco;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Terminal {
@@ -28,16 +27,14 @@ public class Terminal {
         String numero = leitor.next() + leitor.nextLine();
 
         //Atribuir os dados no objeto Aluno
-        Aluno aluno = new Aluno();
-        aluno.setCpf(cpf);
-        aluno.setNome(nome);
-        aluno.setCurso(curso);
-        aluno.setRm(rm);
-        aluno.setIdade(idade);
-        //Criar e atribuir os dados do endereço
         Endereco endereco = new Endereco(logradouro, numero); //Criar o construtor na classe Endereço
-        //Atribuir o endereço no objeto aluno
-        aluno.setEndereco(endereco);
+        Aluno aluno = new Aluno(nome, cpf, idade, endereco, rm, curso);
+//        aluno.setCpf(cpf);
+//        aluno.setNome(nome);
+//        aluno.setCurso(curso);
+//        aluno.setRm(rm);
+//        aluno.setIdade(idade);
+//        aluno.setEndereco(endereco);
 
         //Exibir os dados do objeto
         System.out.println(aluno.getNome() + ", idade: " + aluno.getIdade() + ", cpf: " + aluno.getCpf());
