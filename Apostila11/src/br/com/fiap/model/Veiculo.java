@@ -14,6 +14,11 @@ public class Veiculo {
         this.modelo = modelo;
     }
 
+    @Override
+    public String toString() {
+        return modelo + ", ano: " + ano + ", placa: " + placa;
+    }
+
     //Getters e Setters
     public String getPlaca() {
         return placa;
