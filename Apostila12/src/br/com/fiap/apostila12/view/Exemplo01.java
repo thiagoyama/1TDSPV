@@ -8,6 +8,7 @@ public class Exemplo01 {
     static void main(String[] args) {
         //Ler um número que representa o andar com Scanner
         Scanner leitor = new Scanner(System.in);
+
         try {
             System.out.println("Digite o andar da sala");
             int andar = leitor.nextInt();
