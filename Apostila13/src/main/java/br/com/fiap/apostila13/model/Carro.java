@@ -9,6 +9,12 @@ public class Carro {
     private double valor;
     private boolean automatico;
 
+    @Override
+    public String toString() {
+        return id + " Modelo: " + modelo + " Ano: "
+                + ano + " Cor: " + cor + " Valor: " + valor + " Automático: " + automatico;
+    }
+
     //Construtores
     public Carro() {
     }
