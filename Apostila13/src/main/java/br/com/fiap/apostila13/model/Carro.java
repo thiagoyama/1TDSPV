@@ -19,6 +19,14 @@ public class Carro {
     public Carro() {
     }
 
+    public Carro(int ano, String cor, String modelo, double valor, boolean automatico) {
+        this.ano = ano;
+        this.cor = cor;
+        this.modelo = modelo;
+        this.valor = valor;
+        this.automatico = automatico;
+    }
+
     public Carro(int id, int ano, String cor, String modelo, double valor, boolean automatico) {
         this.id = id;
         this.ano = ano;

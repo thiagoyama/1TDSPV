@@ -7,6 +7,8 @@ create table tb_carro (
                           automatico number(1,0)
 );
 
+create sequence sq_tb_carro start WITH 1;
+
 --Criar o comando para inserir um carro:
 insert into tb_carro (id, ano, cor, modelo, valor, automatico)
 values(1, 2020,'Prata', 'Fusca', 40000, 0);

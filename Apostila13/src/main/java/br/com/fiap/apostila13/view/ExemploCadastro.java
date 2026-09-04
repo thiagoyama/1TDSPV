@@ -10,8 +10,6 @@ public class ExemploCadastro {
     static void main(String[] args) {
         //Pedir para o usuário os dados do carro
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Digite o id");
-        int id = scanner.nextInt();
         System.out.println("Digite o ano do carro");
         int ano = scanner.nextInt();
         System.out.println("Digite o modelo do carro");
@@ -23,7 +21,7 @@ public class ExemploCadastro {
         System.out.println("É automático? true/false");
         boolean automatico = scanner.nextBoolean();
         //Instanciar o carro com os dados
-        Carro carro = new Carro(id, ano, cor, modelo, valor, automatico);
+        Carro carro = new Carro(ano, cor, modelo, valor, automatico);
         try {
             //Instanciar o DAO
             CarroDao dao = new CarroDao();
