@@ -28,6 +28,7 @@ public class ExemploCadastro {
             //Chamar o método de cadastro do DAO
             dao.cadastrar(carro);
             System.out.println("Carro cadastrado!");
+            System.out.println(carro);
         }catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
         }

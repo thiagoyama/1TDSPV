@@ -7,6 +7,16 @@ create table tb_carro (
                           automatico number(1,0)
 );
 
+create table tb_montadora (
+    id number(9,0) primary key,
+    cnpj varchar(22) not null,
+    nome varchar(80) not null
+);
+
+create sequence sq_tb_montadora start with 1 increment by 1 nocache;
+
+--Criar a classe Montadora e a MontadoraDao (depois os testes)
+
 create sequence sq_tb_carro start WITH 1;
 
 --Criar o comando para inserir um carro:

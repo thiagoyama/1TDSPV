@@ -26,7 +26,7 @@ public class CarroDao {
     public void cadastrar(Carro carro) throws SQLException {
         //Criar o comando SQL de insert
         PreparedStatement stmt = conexao.prepareStatement("insert into tb_carro " +
-                "(id, ano, cor, modelo, valor, automatico) values (sq_tb_carro.nextval, ?, ?, ?, ?, ?)");
+                "(id, ano, cor, modelo, valor, automatico) values (sq_tb_carro.nextval, ?, ?, ?, ?, ?)", new String[] {"id"});
         //Atribuir os valores do carro (objeto) no comando SQL
         stmt.setInt(1, carro.getAno());
         stmt.setString(2, carro.getCor());
@@ -35,6 +35,12 @@ public class CarroDao {
         stmt.setBoolean(5, carro.isAutomatico());
         //Executar o comando SQL no Banco
         stmt.executeUpdate();
+        //Recuperar o ID gerado pela sequence
+        ResultSet resultSet = stmt.getGeneratedKeys();
+        if (resultSet.next()){
+            int codigo = resultSet.getInt(1);
+            carro.setId(codigo);
+        }
     }
 
     public Carro buscarPodId(int id) throws SQLException, EntidadeNaoEncontradaException {
@@ -46,14 +52,18 @@ public class CarroDao {
         if (!resultSet.next()) //Se existir um elemento, posiciona o cursor e retorna true
             throw new EntidadeNaoEncontradaException("Carro não encontrado");
         //Recuperar os dados do Carro do resultado do SQL
+        return getCarro(resultSet);
+    }
+
+    private static Carro getCarro(ResultSet resultSet) throws SQLException {
         String modelo = resultSet.getString("modelo");
         double valor = resultSet.getDouble("valor");
         int ano = resultSet.getInt("ano");
         String cor = resultSet.getString("cor");
         boolean automatico = resultSet.getBoolean("automatico");
-
+        int id = resultSet.getInt("id");
         //Criar o objeto produto com os valores e retornar
-        return new Carro(id,ano, cor, modelo, valor, automatico);
+        return new Carro(id, ano, cor, modelo, valor, automatico);
     }
 
     public List<Carro> listar() throws SQLException {
@@ -63,15 +73,7 @@ public class CarroDao {
         List<Carro> lista = new ArrayList<>();
         //Percorrer todas as linhas retornadas da Query
         while (resultSet.next()) {
-            //Ler os dados das colunas
-            String modelo = resultSet.getString("modelo");
-            double valor = resultSet.getDouble("valor");
-            int ano = resultSet.getInt("ano");
-            String cor = resultSet.getString("cor");
-            boolean automatico = resultSet.getBoolean("automatico");
-            int id = resultSet.getInt("id");
-            //Criar o carro e adicionar na lista
-            lista.add(new Carro(id,ano, cor, modelo, valor, automatico));
+            lista.add(getCarro(resultSet));
         }
         //Retornar a lista
         return lista;
@@ -101,6 +103,19 @@ public class CarroDao {
         int linhas = stmt.executeUpdate();
         if (linhas == 0)
             throw new EntidadeNaoEncontradaException("Carro não encontrado para remoção");
+    }
+
+    public List<Carro> buscarPorAno(int anoInicial, int anoFinal) throws SQLException {
+        PreparedStatement stmt = conexao
+                .prepareStatement("select * from tb_carro where ano BETWEEN ? and ?");
+        stmt.setInt(1, anoInicial);
+        stmt.setInt(2, anoFinal);
+        ResultSet resultSet = stmt.executeQuery();
+        List<Carro> lista = new ArrayList<>();
+        while (resultSet.next()){
+            lista.add(getCarro(resultSet));
+        }
+        return lista;
     }
 
 }
