@@ -1,6 +1,7 @@
 package br.com.fiap.api.controller;
 
 import br.com.fiap.api.dao.CondominioDao;
+import br.com.fiap.api.exception.EntidadeNaoEncontradaException;
 import br.com.fiap.api.model.Condominio;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,25 @@ public class CondominioController {
 
     public CondominioController(CondominioDao dao){
         this.dao = dao;
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> atualizar(@PathVariable int id, @RequestBody Condominio condominio) throws EntidadeNaoEncontradaException, SQLException {
+        condominio.setId(id);
+        dao.atualizar(condominio);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> remover(@PathVariable int id) throws EntidadeNaoEncontradaException, SQLException {
+        dao.remover(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Condominio> buscar(@PathVariable int id) throws EntidadeNaoEncontradaException, SQLException {
+        Condominio condominio = dao.buscar(id);
+        return ResponseEntity.ok(condominio);
     }
 
     @GetMapping

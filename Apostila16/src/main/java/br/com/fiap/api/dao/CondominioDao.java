@@ -4,6 +4,7 @@ import br.com.fiap.api.exception.EntidadeNaoEncontradaException;
 import br.com.fiap.api.model.Condominio;
 import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
+import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,9 +19,33 @@ public class CondominioDao {
     private final String INSERT_SQL = "insert into tb_condominio (cd_condominio, nm_condominio, ds_bloco) values (sq_tb_condominio.nextval, ?, ?)";
     private final String SELECT_SQL = "select * from tb_condominio";
     private final String SELECT_BY_ID_SQL = "select * from tb_condominio where cd_condominio = ?";
+    private final String DELETE_SQL = "delete from tb_condominio where cd_condominio = ?";
+    private final String UPDATE_SQL = "update tb_condominio set nm_condominio = ?, ds_bloco = ? where cd_condominio = ?";
 
     public CondominioDao(DataSource dataSource){
         this.dataSource = dataSource;
+    }
+
+    public void atualizar(Condominio condominio) throws SQLException, EntidadeNaoEncontradaException {
+        try (Connection conexao = dataSource.getConnection();
+             PreparedStatement stmt = conexao.prepareStatement(UPDATE_SQL)){
+            stmt.setString(1, condominio.getNome());
+            stmt.setString(2, condominio.getBloco());
+            stmt.setInt(3, condominio.getId());
+            int linhas = stmt.executeUpdate();
+            if (linhas == 0)
+                throw new EntidadeNaoEncontradaException("Condominio não encontrado");
+        }
+    }
+
+    public void remover(int id) throws SQLException, EntidadeNaoEncontradaException {
+        try (Connection conexao = dataSource.getConnection();
+            PreparedStatement stmt = conexao.prepareStatement(DELETE_SQL)){
+            stmt.setInt(1, id);
+            int linhas = stmt.executeUpdate();
+            if (linhas == 0)
+                throw new EntidadeNaoEncontradaException("Condominio não encontrado");
+        }
     }
 
     public Condominio buscar(int id) throws SQLException, EntidadeNaoEncontradaException {
