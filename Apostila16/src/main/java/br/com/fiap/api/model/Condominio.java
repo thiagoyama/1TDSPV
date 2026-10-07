@@ -19,6 +19,10 @@ public class Condominio {
         this.bloco = bloco;
     }
 
+    public Condominio(int idCondominio) {
+        this.id = idCondominio;
+    }
+
     public int getId() {
         return id;
     }
