@@ -22,8 +22,22 @@ public class ApartamentoDao {
 
     private static final String SELECT_SQL = "select * from tb_apartamento";
 
+    private static final String SELECT_BY_CONDOMINIO_SQL = "select * from tb_apartamento where cd_condominio = ?";
+
     public ApartamentoDao(DataSource dataSource) {
         this.dataSource = dataSource;
+    }
+
+    public List<Apartamento> buscarPorCondominio(int idCondominio) throws SQLException {
+        try (Connection conexao = dataSource.getConnection();
+            PreparedStatement stmt = conexao.prepareStatement(SELECT_BY_CONDOMINIO_SQL)){
+            stmt.setInt(1, idCondominio);
+            ResultSet resultSet = stmt.executeQuery();
+            List<Apartamento> lista = new ArrayList<>();
+            while (resultSet.next())
+                lista.add(getApartamento(resultSet));
+            return lista;
+        }
     }
 
     public List<Apartamento> listar() throws SQLException {
