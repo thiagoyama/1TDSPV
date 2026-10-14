@@ -2,6 +2,7 @@ package br.com.fiap.api.dto;
 
 public class CondominioRequestDto {
 
+    private int id;
     private String nome;
     private String bloco;
 
@@ -19,5 +20,13 @@ public class CondominioRequestDto {
 
     public void setBloco(String bloco) {
         this.bloco = bloco;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
