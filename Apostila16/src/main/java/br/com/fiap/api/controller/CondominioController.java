@@ -7,6 +7,7 @@ import br.com.fiap.api.dto.CondominioResponseDto;
 import br.com.fiap.api.exception.EntidadeNaoEncontradaException;
 import br.com.fiap.api.model.Apartamento;
 import br.com.fiap.api.model.Condominio;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class CondominioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> atualizar(@PathVariable int id, @RequestBody CondominioRequestDto dto) throws EntidadeNaoEncontradaException, SQLException {
+    public ResponseEntity<Void> atualizar(@PathVariable int id, @Valid @RequestBody CondominioRequestDto dto) throws EntidadeNaoEncontradaException, SQLException {
         Condominio condominio = mapper.map(dto, Condominio.class);
         condominio.setId(id);
         dao.atualizar(condominio);
@@ -62,7 +63,7 @@ public class CondominioController {
     }
 
     @PostMapping
-    public ResponseEntity<CondominioResponseDto> inserir(@RequestBody CondominioRequestDto dto,
+    public ResponseEntity<CondominioResponseDto> inserir(@Valid @RequestBody CondominioRequestDto dto,
                                               UriComponentsBuilder builder) throws SQLException {
 
         Condominio condominio = mapper.map(dto, Condominio.class);

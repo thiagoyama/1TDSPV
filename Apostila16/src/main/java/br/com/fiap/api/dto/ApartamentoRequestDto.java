@@ -1,15 +1,25 @@
 package br.com.fiap.api.dto;
 
 import br.com.fiap.api.model.Condominio;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Positive;
 
 import java.time.LocalDate;
 
 public class ApartamentoRequestDto {
 
+    @Positive
     private int numero;
+
+    @Positive
     private double area;
+
+    @Past
     private LocalDate dataOcupacao;
+
     private boolean ocupado;
+
     private CondominioRequestDto condominio;
 
     public int getNumero() {
